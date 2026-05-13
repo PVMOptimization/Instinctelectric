@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  background: #050608;
+  color: #e8e6df;
+}
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-feature-settings: 'ss01', 'cv01';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: #19fa05;
+  color: #050608;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0d12;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1f28;
+  border: 2px solid #0a0d12;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #262d3a;
+}
+
+/* Subtle film grain — anchored to viewport so it doesn't tile visibly while scrolling */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 100;
+  mix-blend-mode: overlay;
+}
+
+/* Pulse for the live status dot */
+@keyframes live-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 #19fa05cc, 0 0 12px 0 #19fa0588;
+  }
+  50% {
+    box-shadow: 0 0 0 6px #19fa0500, 0 0 22px 4px #19fa05aa;
+  }
+}
+.live-dot {
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+/* Wire-trace draw (used for hero background) */
+@keyframes wire-flow {
+  0% { stroke-dashoffset: 600; opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { stroke-dashoffset: 0; opacity: 0.35; }
+}
+.wire-trace {
+  stroke-dasharray: 600;
+  animation: wire-flow 3.2s ease-out forwards;
+}
+
+/* Spark — used for a single moment in the hero */
+@keyframes spark-fire {
+  0% { transform: scale(0); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.spark {
+  animation: spark-fire 1.4s ease-out infinite;
+}
+
+/* Staggered hero entrance */
+@keyframes rise {
+  0% { transform: translateY(28px); opacity: 0; clip-path: inset(0 0 100% 0); }
+  100% { transform: translateY(0); opacity: 1; clip-path: inset(0 0 0 0); }
+}
+.rise {
+  animation: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Marquee-free, deliberate horizontal flow for service words */
+@keyframes drift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 1.5rem)); }
+}
+.drift {
+  animation: drift 38s linear infinite;
+}
+
+/* Magnetic button — base style. JS will set --mx / --my. */
+.magnet {
+  --mx: 0px;
+  --my: 0px;
+  transform: translate(var(--mx), var(--my));
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+/* Electric border trace for primary CTA on hover */
+.trace-edge {
+  position: relative;
+  isolation: isolate;
+}
+.trace-edge::before,
+.trace-edge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+.trace-edge::before {
+  border: 1px solid #19fa05;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.trace-edge::after {
+  box-shadow: 0 0 0 0 #19fa0500;
+  transition: box-shadow 0.4s ease;
+}
+.trace-edge:hover::before {
+  opacity: 1;
+}
+.trace-edge:hover::after {
+  box-shadow: 0 0 28px 2px #19fa0540, inset 0 0 22px #19fa0520;
+}
+
+/* Glass panel — used sparingly, only for the live status HUD. */
+.glass-hud {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01) 60%),
+    rgba(10, 13, 18, 0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 30px 60px -30px rgba(0,0,0,0.7);
+}
+
+/* Sidewriting (vertical labels) */
+.sidewrite {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Hide on small screens helper for big decorative type */
+@media (max-width: 640px) {
+  .crush-mobile {
+    letter-spacing: -0.04em;
+  }
+}
