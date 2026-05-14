@@ -169,3 +169,19 @@ body {
     letter-spacing: -0.04em;
   }
 }
+
+/* Hide native scrollbar on the mobile carousel — gesture remains */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scroll-snap behavior */
+.snap-scroller {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+}
