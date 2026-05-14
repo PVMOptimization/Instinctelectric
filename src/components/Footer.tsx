@@ -16,19 +16,13 @@ export default function Footer() {
 
       <div className="relative grid grid-cols-12 gap-x-6 gap-y-10">
         <div className="col-span-12 md:col-span-6">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display font-semibold tracking-crush text-bone text-xl">
-              instinct
-            </span>
-            <span
-              className="inline-block h-1.5 w-1.5 rounded-full bg-live live-dot translate-y-[-2px]"
-              aria-hidden
-            />
-            <span className="font-mono text-[11px] tracking-[0.25em] text-bone/40">
-              ELECTRIC
-            </span>
-          </div>
-          <p className="mt-4 max-w-sm text-bone/50 text-sm leading-relaxed">
+          <img
+            src="/instinct-logo.webp"
+            alt="Instinct Electric"
+            className="h-9 sm:h-10 w-auto"
+            draggable={false}
+          />
+          <p className="mt-5 max-w-sm text-bone/50 text-sm leading-relaxed">
             Licensed electrical contractor based in Lorena, Texas. Serving
             McLennan, Hill, Ellis and surrounding counties since the day we
             got the license.
